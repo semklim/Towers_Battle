@@ -1,5 +1,5 @@
 import Player from "./Player.js";
-import { Watermelon, Watermelon2 } from "./Enemy.js";
+import { Daemon, Watermelon2 } from "./Enemy.js";
 import UI from "./UI.js";
 
 class Game {
@@ -30,13 +30,13 @@ class Game {
 		this.enemiesP2 = this.enemiesP2.filter(enemy2 => !enemy2.markedForDeletion);
 		// Creating new enemy and update positions of each
 		this.enemiesP1.forEach(enemy => {
-			enemy.update();
+			enemy.update(deltaTime);
 			if (this.checkCollision(this.player2, enemy)){
 				enemy.markedForDeletion = true;
 			}
 		});
 		this.enemiesP2.forEach(enemy2 => {
-			enemy2.update();
+			enemy2.update(deltaTime);
 			if (this.checkCollision(this.player1, enemy2)){
 				enemy2.markedForDeletion = true;
 			}
@@ -67,16 +67,16 @@ class Game {
 		this.ui.draw(context);
 	}
 	addEnemyP1(deltaTime) {
-		if (this.enemy1Timer >= this.enemyInterval){
+		if (this.enemy1Timer >= this.enemyInterval && this.enemiesP1.length < 1){
 			this.enemy1Timer = 0;
-			this.enemiesP1.push(new Watermelon(this));
+			this.enemiesP1.push(new Daemon(this));
 			this.enemyInterval = Math.random() * (1000 - 500) + 500;
 		} else{
 			this.enemy1Timer += deltaTime;
 		}
 	   }
 	addEnemyP2(deltaTime) {
-		if (this.enemy2Timer >= this.enemyInterval){
+		if (this.enemy2Timer >= this.enemyInterval && this.enemiesP2.length < 1){
 			this.enemy2Timer = 0;
 			this.enemiesP2.push(new Watermelon2(this));
 			this.enemyInterval = Math.random() * (1000 - 500) + 500;
