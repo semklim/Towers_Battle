@@ -17,9 +17,6 @@ class UI {
 		context.fillText(`Score: ${this.game.score}`, 10, 40);
 
 		// draw a projectile amount
-		for (let i = 0; i < this.game.ammo; i++) {
-			context.fillRect(10 + 5 * i, 50, 3, 20);
-		}
 		context.restore();
 	}
 }

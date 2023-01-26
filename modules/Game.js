@@ -6,20 +6,14 @@ class Game {
 	constructor(width, height) {
 		this.width = width;
 		this.height = height;
-		this.player1 = new Player(this, 0, 0);
-		this.player2 = new Player(this, this.width - 100, 0);
-		// this.input = new InputHandler(this);
+		this.player1 = new Player(this, 0);
+		this.player2 = new Player(this, this.width - 100);
 		this.ui = new UI(this);
 		this.enemiesP1 = [];
 		this.enemiesP2 = [];
-		// this.keys = [];
-		this.ammo = 10;
-		this.maxAmmo = 50;
 		this.enemy1Timer = 0;
 		this.enemy2Timer = 0;
 		this.enemyInterval = 1000;
-		this.ammoTimer = 0;
-		this.ammoInterval = 1500;
 		this.score = 0;
 		this.winningScore = 10;
 	}
