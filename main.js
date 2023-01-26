@@ -18,12 +18,31 @@ window.addEventListener('load', function onLoadPage(){
 
 // animation loop
 let lastTime = 0;
-
+let stop;
+let isPaused = false;
+// animation loop
 function animate(timeStamp) {
 		const deltaTime = timeStamp - lastTime;
 		lastTime = timeStamp;
 		ctx.clearRect(0, 0, C_Width, C_Height);
 		game.update(deltaTime);
 		game.draw(ctx);
-		requestAnimationFrame(animate);
+		stop = requestAnimationFrame(animate);
 }
+
+function stopAnime(){
+	cancelAnimationFrame(stop);
+	isPaused = true;
+}
+
+const play = document.querySelector('.play');
+const pause = document.querySelector('.stop');
+
+play.addEventListener('click', () => {
+	if(isPaused){
+		animate(lastTime);
+		isPaused = false;
+	}
+});
+
+pause.addEventListener('click', stopAnime);
