@@ -55,19 +55,11 @@ class Game {
 		});
 		// logic of pause in creating enemies
 		// For player 1
-		if (this.enemy1Timer > this.enemyInterval){
-			this.addEnemyP1();
-			this.enemy1Timer = 0;
-		} else{
-			this.enemy1Timer += deltaTime + Math.random() * (deltaTime * (Math.random() * 5));
-		}
+			this.addEnemyP1(deltaTime);
+
 		// For player 2
-		if (this.enemy2Timer > this.enemyInterval){
-			this.addEnemyP2();
-			this.enemy2Timer = 0;
-		} else{
-			this.enemy2Timer += deltaTime + Math.random() * (deltaTime * (Math.random() * 5));
-		}
+			this.addEnemyP2(deltaTime);
+
 	}
 	draw(context) {
 		this.enemiesP1.forEach(enemy => {
@@ -80,12 +72,24 @@ class Game {
 		this.player2.draw(context);
 		this.ui.draw(context);
 	}
-	addEnemyP1() {
+	addEnemyP1(deltaTime) {
+		if (this.enemy1Timer >= this.enemyInterval){
+			this.enemy1Timer = 0;
 			this.enemiesP1.push(new Watermelon(this));
+			this.enemyInterval = Math.random() * (1000 - 500) + 500;
+		} else{
+			this.enemy1Timer += deltaTime;
+		}
 	   }
-	addEnemyP2() {
+	addEnemyP2(deltaTime) {
+		if (this.enemy2Timer >= this.enemyInterval){
+			this.enemy2Timer = 0;
 			this.enemiesP2.push(new Watermelon2(this));
-	   }
+			this.enemyInterval = Math.random() * (1000 - 500) + 500;
+		} else{
+			this.enemy2Timer += deltaTime;
+		}
+	}
 	   checkCollision(rect1, rect2) {
 		return ( rect1.x < rect2.x + rect2.width &&
 				 rect1.x + rect1.width > rect2.x &&
