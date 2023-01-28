@@ -28,10 +28,17 @@ class Unit {
 		context.fillStyle = this.color;
 		context.font = `${this.fontSize} 30px ${this.fontFamily}`;
 		context.fillText(this.life, this.x, this.y - this.height - 20);
+
+
 		if(this.isAttack){
 			context.drawImage(this.img, this.frameX * this.width, this.states.isAttack.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
 		}else{
-			context.drawImage(this.img, this.frameX * this.width, this.states.isMove.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+      //костыль зеркальной открисовки
+      if(this.direction === `left`){
+        context.drawImage(this.img, this.frameX  * this.width, (this.states.isMove.frameY + 1) * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+      } else {
+        context.drawImage(this.img, this.frameX  * this.width, this.states.isMove.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+      }
 		}
 	}
 	chooseState(state, deltaTime){
@@ -51,7 +58,7 @@ class Unit {
 const states = {
 	demon: {
 		isMove: {
-			frameY: 0,
+			frameY: 0,  
 			maxFrame: 5,
 		},
 		isAttack: {
@@ -83,6 +90,8 @@ class Demon extends Unit {
 		this.img = document.querySelector('#demon');
 		this.isAttack = false;
 		this.markedForDeletion = false;
+
+    
 	}
 }
 class Skeleton extends Unit {
