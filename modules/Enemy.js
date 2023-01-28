@@ -28,10 +28,17 @@ class Enemy {
 		context.fillStyle = this.color;
 		context.font = `${this.fontSize} 30px ${this.fontFamily}`;
 		context.fillText(this.life, this.x, this.y - this.height - 20);
+
+
 		if(this.isAttack){
 			context.drawImage(this.img, this.frameX * this.width, this.states.isAttack.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
 		}else{
-			context.drawImage(this.img, this.frameX * this.width, this.states.isMove.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+      //костыль зеркальной открисовки
+      if(this.direction === `left`){
+        context.drawImage(this.img, this.frameX  * this.width, (this.states.isMove.frameY + 1) * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+      } else {
+        context.drawImage(this.img, this.frameX  * this.width, this.states.isMove.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+      }
 		}
 	}
 	chooseState(state, deltaTime){
@@ -49,9 +56,10 @@ class Enemy {
 }
 
 const states = {
+  
 	deamon: {
 		isMove: {
-			frameY: 0,
+			frameY: 0,  
 			maxFrame: 5,
 		},
 		isAttack: {
@@ -80,6 +88,7 @@ class Daemon extends Enemy {
 		this.life = 200;
 		this.fps = 18;
 		this.states = states.deamon;
+    
 		this.frameInterval = 1000/this.fps;
 		this.maxFrame = 5;
 		this.direction = direction;
@@ -87,6 +96,8 @@ class Daemon extends Enemy {
 		this.img = document.querySelector('#deamon');
 		this.isAttack = false;
 		this.markedForDeletion = false;
+
+    
 	}
 }
 class Watermelon2 extends Enemy {
