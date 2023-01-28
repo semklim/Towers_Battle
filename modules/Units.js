@@ -35,7 +35,7 @@ class Unit {
 		}else{
       //костыль зеркальной открисовки
       if(this.direction === `left`){
-        context.drawImage(this.img, this.frameX  * this.width, (this.states.isMove.frameY + 1) * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+        context.drawImage(this.img, this.frameX  * this.width, this.states.isMoveLeft.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
       } else {
         context.drawImage(this.img, this.frameX  * this.width, this.states.isMove.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
       }
@@ -58,7 +58,11 @@ class Unit {
 const states = {
 	demon: {
 		isMove: {
-			frameY: 0,  
+			frameY: 0,
+			maxFrame: 5,
+		},
+		isMoveLeft: {
+			frameY: 1,
 			maxFrame: 5,
 		},
 		isAttack: {
@@ -68,6 +72,10 @@ const states = {
 	},
 	skeleton: {
 		isMove: {
+			frameY: 11,
+			maxFrame: 8,
+		},
+		isMoveLeft: {
 			frameY: 9,
 			maxFrame: 8,
 		},
@@ -90,8 +98,6 @@ class Demon extends Unit {
 		this.img = document.querySelector('#demon');
 		this.isAttack = false;
 		this.markedForDeletion = false;
-
-    
 	}
 }
 class Skeleton extends Unit {
