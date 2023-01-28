@@ -1,13 +1,12 @@
 import Game from "./modules/Game.js";
 
-const C_Width = 600;
+const C_Width = 1000;
 const C_Height = 480;
 
 const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
 
 const game = new Game(C_Width, C_Height);
-
 window.addEventListener('load', function onLoadPage(){
 	// canvas setup
 	canvas.width = C_Width;
@@ -44,5 +43,6 @@ play.addEventListener('click', () => {
 		isPaused = false;
 	}
 });
-
+// console.log(game);
+// console.dir(game.setOfUnit.demon())
 pause.addEventListener('click', stopAnime);
