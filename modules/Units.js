@@ -1,11 +1,11 @@
-class Enemy {
+class Unit {
 	constructor(game) {
 		this.game = game;
 		this.frameX = 0;
-		this.frameY = 0;
-		this.fps = 9;
+		this.life = 200;
+		this.fps = 18;
+		this.frameInterval = 1000/this.fps;
 		this.frameTimer = 0;
-		this.maxFrame = 5;
 		this.fontSize = 25;
 		this.fontFamily = 'Helvetica';
 		this.speedX = Math.random() * (2 - 1) + 0.5;
@@ -49,7 +49,7 @@ class Enemy {
 }
 
 const states = {
-	deamon: {
+	demon: {
 		isMove: {
 			frameY: 0,
 			maxFrame: 5,
@@ -59,7 +59,7 @@ const states = {
 			maxFrame: 3,
 		},
 	},
-	scelet: {
+	skeleton: {
 		isMove: {
 			frameY: 9,
 			maxFrame: 8,
@@ -70,43 +70,62 @@ const states = {
 		},
 	}
 }
-class Daemon extends Enemy {
+class Demon extends Unit {
 	constructor(game, direction) {
 		super(game);
 		this.width = 128;
 		this.height = 128;
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
-		this.life = 200;
-		this.fps = 18;
-		this.states = states.deamon;
-		this.frameInterval = 1000/this.fps;
-		this.maxFrame = 5;
+		this.states = states.demon;
 		this.direction = direction;
 		this.color = 'green';
-		this.img = document.querySelector('#deamon');
+		this.img = document.querySelector('#demon');
 		this.isAttack = false;
 		this.markedForDeletion = false;
 	}
 }
-class Watermelon2 extends Enemy {
+class Skeleton extends Unit {
 	constructor(game, direction) {
 		super(game);
 		this.width = 64;
 		this.height = 64;
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
-		this.life = 200;
-		this.frameY = 9;
-		this.fps = 18;
-		this.states = states.scelet;
-		this.frameInterval = 1000/this.fps;
-		this.maxFrame = 8;
+		this.states = states.skeleton;
 		this.direction = direction;
 		this.color = 'red';
 		this.markedForDeletion = false;
-		this.img = document.querySelector('#scelet');
+		this.img = document.querySelector('#skeleton');
+	}
+}
+class Zombie extends Unit {
+	constructor(game, direction) {
+		super(game);
+		this.width = 64;
+		this.height = 64;
+		this.y = this.game.height - this.width;
+		this.x = direction === 'right' ? 0 : this.game.width - this.width;
+		this.states = states.skeleton;
+		this.direction = direction;
+		this.color = 'aqua';
+		this.markedForDeletion = false;
+		this.img = document.querySelector('#zombie');
 	}
 }
 
-export {Daemon, Watermelon2};
+class Lizard extends Unit {
+	constructor(game, direction) {
+		super(game);
+		this.width = 64;
+		this.height = 64;
+		this.y = this.game.height - this.width;
+		this.x = direction === 'right' ? 0 : this.game.width - this.width;
+		this.states = states.skeleton;
+		this.direction = direction;
+		this.color = 'aqua';
+		this.markedForDeletion = false;
+		this.img = document.querySelector('#lizard');
+	}
+}
+export { Demon, Skeleton, Zombie, Lizard };

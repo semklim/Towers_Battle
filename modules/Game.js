@@ -1,11 +1,13 @@
 import Player from "./Player.js";
-import { Daemon, Watermelon2 } from "./Enemy.js";
+import { Demon, Skeleton, Zombie, Lizard } from "./Units.js";
 import UI from "./UI.js";
 
 
 const setOfUnits = new Map([
-	[1, (game, direction) => new Daemon(game, direction)],
-	[2, (game, direction) => new Watermelon2(game, direction)],
+	[1, (game, direction) => new Demon(game, direction)],
+	[2, (game, direction) => new Skeleton(game, direction)],
+	[3, (game, direction) => new Zombie(game, direction)],
+	[4, (game, direction) => new Lizard(game, direction)],
   ]);
 
 class Game {
@@ -16,11 +18,11 @@ class Game {
 		this.player2 = new Player(this, this.width - 100);
 		this.ui = new UI(this);
 		this.setOfUnits = setOfUnits;
-		this.enemiesP1 = [];
-		this.enemiesP2 = [];
-		this.enemy1Timer = 0;
-		this.enemy2Timer = 0;
-		this.enemyInterval = 1000;
+		this.unitsP1 = [];
+		this.unitsP2 = [];
+		this.units1Timer = 0;
+		this.units2Timer = 0;
+		this.unitInterval = 1000;
 		this.score = 0;
 		this.winningScore = 10;
 	}
@@ -32,80 +34,80 @@ class Game {
 		} else {
 			this.ammoTimer += deltaTime;
 		}
-		// Check if enemy is dead
-		this.enemiesP1 = this.enemiesP1.filter(enemy => !enemy.markedForDeletion);
-		this.enemiesP2 = this.enemiesP2.filter(enemy2 => !enemy2.markedForDeletion);
-		// Creating new enemy and update positions of each
-		this.enemiesP1.forEach(enemy => {
-			enemy.update(deltaTime);
-			// if (this.checkCollision(this.player2, enemy)) {
-			// 	enemy.markedForDeletion = true;
+		// Check if unit is dead
+		this.unitsP1 = this.unitsP1.filter(unit => !unit.markedForDeletion);
+		this.unitsP2 = this.unitsP2.filter(unit2 => !unit2.markedForDeletion);
+		// Creating new unit and update positions of each
+		this.unitsP1.forEach(unit => {
+			unit.update(deltaTime);
+			// if (this.checkCollision(this.player2, unit)) {
+			// 	unit.markedForDeletion = true;
 			// }
 		});
-		this.enemiesP2.forEach((enemy2) => {
-			enemy2.update(deltaTime);
-			// if (this.checkCollision(this.player1, enemy2)) {
-			// 	enemy2.markedForDeletion = true;
+		this.unitsP2.forEach((unit2) => {
+			unit2.update(deltaTime);
+			// if (this.checkCollision(this.player1, unit2)) {
+			// 	unit2.markedForDeletion = true;
 			// }
-			this.enemiesP1.forEach((enemy) => {
-				if (this.checkCollision(enemy, enemy2)) {
-					if (enemy.life <= 0) {
-						enemy.markedForDeletion = true;
+			this.unitsP1.forEach((unit) => {
+				if (this.checkCollision(unit, unit2)) {
+					if (unit.life <= 0) {
+						unit.markedForDeletion = true;
 					} else {
-							enemy2.life -= Math.floor(Math.random() * 20 + 3);
-							console.log('Deamon life = ' + enemy.life);
-							if(enemy === this.enemiesP1.at(-1)){
-								this.enemy1Timer = 0;
+							unit2.life -= Math.floor(Math.random() * 20 + 3);
+							console.log('Demon life = ' + unit.life);
+							if(unit === this.unitsP1.at(-1)){
+								this.units1Timer = 0;
 						}
 					};
-					if (enemy2.life <= 0) {
-						enemy2.markedForDeletion = true;
+					if (unit2.life <= 0) {
+						unit2.markedForDeletion = true;
 					} else {
-							enemy.life -= Math.floor(Math.random() * 20 + 3);
-							console.log('Sceleton life ' +' = '  + enemy2.life);
-							if(enemy2 === this.enemiesP2.at(-1)){
-								this.enemy2Timer = 0;
+							unit.life -= Math.floor(Math.random() * 20 + 3);
+							console.log('Skeletonon life ' +' = '  + unit2.life);
+							if(unit2 === this.unitsP2.at(-1)){
+								this.units2Timer = 0;
 							// }
 						}
 					}
 				}
 			});
 		});
-		// logic of pause in creating enemies
+		// logic of pause in creating units
 		// For player 1
-		this.addEnemyP1(deltaTime);
+		this.addUnitP1(deltaTime);
 
 		// For player 2
-		this.addEnemyP2(deltaTime);
+		this.addUnitP2(deltaTime);
 
 	}
 	draw(context) {
-		this.enemiesP1.forEach(enemy => {
-			enemy.draw(context);
+		this.unitsP1.forEach(unit => {
+			unit.draw(context);
 		});
-		this.enemiesP2.forEach(enemy => {
-			enemy.draw(context);
+		this.unitsP2.forEach(unit => {
+			unit.draw(context);
 		});
 		this.player1.draw(context);
 		this.player2.draw(context);
 		this.ui.draw(context);
 	}
-	addEnemyP1(deltaTime) {
-		if (this.enemy1Timer >= this.enemyInterval) {
-			this.enemy1Timer = 0;
-			this.randomUnit(this.enemiesP1, 'right');
-			this.enemyInterval = Math.random() * (1000 - 500) + 500;
+	addUnitP1(deltaTime) {
+		if (this.units1Timer >= this.unitInterval) {
+			this.units1Timer = 0;
+			this.randomUnit(this.unitsP1, 'right');
+			this.unitInterval = Math.random() * (1000 - 500) + 500;
 		} else {
-			this.enemy1Timer += deltaTime;
+			this.units1Timer += deltaTime;
 		}
 	}
-	addEnemyP2(deltaTime) {
-		if (this.enemy2Timer >= this.enemyInterval) {
-			this.enemy2Timer = 0;
-			this.randomUnit(this.enemiesP2, 'left');
-			this.enemyInterval = Math.random() * (1000 - 500) + 500;
+	addUnitP2(deltaTime) {
+		if (this.units2Timer >= this.unitInterval) {
+			this.units2Timer = 0;
+			this.randomUnit(this.unitsP2, 'left');
+			this.unitInterval = Math.random() * (1000 - 500) + 500;
 		} else {
-			this.enemy2Timer += deltaTime;
+			this.units2Timer += deltaTime;
 		}
 	}
 	checkCollision(rect1, rect2) {
@@ -115,7 +117,7 @@ class Game {
 			rect1.y + rect1.height > rect2.y)
 	}
 	randomUnit(arr, direction){
-		const randomNum = Math.floor(Math.random() * 2 + 1);
+		const randomNum = Math.floor(Math.random() * this.setOfUnits.size + 1);
 		const unit = this.setOfUnits.get(randomNum);
 			arr.push(unit(this, direction));
 	}
