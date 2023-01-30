@@ -13,14 +13,21 @@
 <title>Towers battle</title>
 </head>
 <body>
-<canvas id="canvas" class="blur"></canvas>
-<img src="./source/sprites/Demon.png" hidden id="demon" alt="Demon">
-<img src="./source/sprites/Skeleton.png" hidden id="skeleton" alt="Skeleton">
-<img src="./source/sprites/Zombie.png" hidden id="zombie" alt="Zombie">
-<img src="./source/sprites/Lizard.png" hidden id="lizard" alt="Lizard">
-<img src="./source/sprites/Dragon.png" hidden id="dragon" alt="Dragon">
-<img src="./source/sprites/Castle.png" hidden id="castleLeft" alt="Castle">
-<button class="play">PLAY</button>
-<button class="stop">PAUSE</button>
+  <header class="header">
+    <h2 class="gameLogo">Towers battle</h2>
+  </header>
+  <section class="canvas">
+    <canvas id="canvas" class="blur"></canvas>
+    <img src="./source/sprites/Demon.png" hidden id="demon" alt="Demon">
+    <img src="./source/sprites/Skeleton.png" hidden id="skeleton" alt="Skeleton">
+    <img src="./source/sprites/Zombie.png" hidden id="zombie" alt="Zombie">
+    <img src="./source/sprites/Lizard.png" hidden id="lizard" alt="Lizard">
+    <img src="./source/sprites/Dragon.png" hidden id="dragon" alt="Dragon">
+    <img src="./source/sprites/Castle.png" hidden id="castleLeft" alt="Castle">
+  </section>
+  <section class="buttonsControls">
+    <button class="play buttonAnimate"><span class="buttonAnimate__text">PLAY</span></button>
+    <button class="stop buttonAnimate"><span class="buttonAnimate__text">PAUSE</span></button>
+  </section>
 </body>
 </html>
