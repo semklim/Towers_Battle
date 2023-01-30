@@ -56,16 +56,16 @@ class Game {
 					if (unit.life <= 0) {
 						unit.markedForDeletion = true;
 					} else {
-							unit.direction === 'right' ? unit.x -= unit.speedX : unit.x += unit.speedX;
-							unit2.life -= Math.floor(Math.random() * 20 + 3);
-							console.log('Demon life = ' + unit.life);
+							unit.x -= unit.speedX;
+							unit.currentState = 'isAttack';
+							unit2.life -= Math.floor(Math.random() * 4 + 3);
 					};
 					if (unit2.life <= 0) {
 						unit2.markedForDeletion = true;
 					} else {
-						unit2.direction === 'right' ? unit2.x -= unit2.speedX : unit2.x += unit2.speedX;
-							unit.life -= Math.floor(Math.random() * 20 + 3);
-							console.log('Skeletonon life ' +' = '  + unit2.life);
+							unit2.x += unit2.speedX;
+							unit2.currentState = 'isAttackLeft';
+							unit.life -= Math.floor(Math.random() * 4 + 3);
 					}
 				}
 			});
@@ -90,7 +90,7 @@ class Game {
 		this.ui.draw(context);
 	}
 	addUnitP1(deltaTime) {
-		if (this.units1Timer >= this.unitInterval) {
+		if (this.units1Timer >= this.unitInterval && this.unitsP1.length < 5) {
 			this.units1Timer = 0;
 			this.randomUnit(this.unitsP1, 'right');
 			this.unitInterval = Math.random() * (1000 - 500) + 500;
@@ -99,7 +99,7 @@ class Game {
 		}
 	}
 	addUnitP2(deltaTime) {
-		if (this.units2Timer >= this.unitInterval) {
+		if (this.units2Timer >= this.unitInterval && this.unitsP2.length < 5) {
 			this.units2Timer = 0;
 			this.randomUnit(this.unitsP2, 'left');
 			this.unitInterval = Math.random() * (1000 - 500) + 500;

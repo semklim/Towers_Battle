@@ -2,7 +2,7 @@ class Unit {
 	constructor(game) {
 		this.game = game;
 		this.frameX = 0;
-		this.life = 40;
+		this.life = 200;
 		this.fps = 18;
 		this.frameInterval = 1000/this.fps;
 		this.frameTimer = 0;
@@ -11,34 +11,22 @@ class Unit {
 		this.speedX = Math.random() * (2 - 1) + 0.5;
 	}
 	update(deltaTime) {
-		
-		if(!this.isAttack){
-
 		if (this.direction === 'right') {
+			this.currentState = 'isMove';
 			this.x += this.speedX;
 		} else if(this.direction === 'left'){
-			this.x += this.speedX * -1;
+			this.currentState = 'isMoveLeft';
+			this.x -= this.speedX;
 		}
-		}
-
-		this.isAttack ? this.chooseState(this.states.isAttack, deltaTime) : this.chooseState(this.states.isMove, deltaTime)
+		
+		this.chooseState(this.states[this.currentState], deltaTime)
 	}
 	draw(context) {
 		context.fillStyle = this.color;
 		context.font = `${this.fontSize} 30px ${this.fontFamily}`;
 		context.fillText(this.life, this.x, this.y - this.height - 20);
 
-
-		if(this.isAttack){
-			context.drawImage(this.img, this.frameX * this.width, this.states.isAttack.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
-		}else{
-      //костыль зеркальной открисовки
-      if(this.direction === `left`){
-        context.drawImage(this.img, this.frameX  * this.width, this.states.isMoveLeft.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
-      } else {
-        context.drawImage(this.img, this.frameX  * this.width, this.states.isMove.frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
-      }
-		}
+        context.drawImage(this.img, this.frameX  * this.width, this.states[this.currentState].frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
 	}
 	chooseState(state, deltaTime){
 		if(this.frameTimer > this.frameInterval){
@@ -65,8 +53,12 @@ const states = {
 			maxFrame: 5,
 		},
 		isAttack: {
+			frameY: 0,
+			maxFrame: 5,
+		},
+		isAttackLeft: {
 			frameY: 1,
-			maxFrame: 3,
+			maxFrame: 5,
 		},
 	},
 	dragon: {
@@ -82,6 +74,10 @@ const states = {
 			frameY: 2,
 			maxFrame: 2,
 		},
+		isAttackLeft: {
+			frameY: 2,
+			maxFrame: 2,
+		},
 	},
 	skeleton: {
 		isMove: {
@@ -93,6 +89,10 @@ const states = {
 			maxFrame: 8,
 		},
 		isAttack: {
+			frameY: 7,
+			maxFrame: 7,
+		},
+		isAttackLeft: {
 			frameY: 5,
 			maxFrame: 7,
 		},
@@ -105,6 +105,7 @@ class Demon extends Unit {
 		this.height = 128;
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
+		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
 		this.states = states.demon;
 		this.direction = direction;
 		this.color = 'green';
@@ -120,6 +121,7 @@ class Skeleton extends Unit {
 		this.height = 64;
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
+		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
 		this.states = states.skeleton;
 		this.direction = direction;
 		this.color = 'red';
@@ -136,6 +138,7 @@ class Zombie extends Unit {
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
 		this.states = states.skeleton;
+		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
 		this.direction = direction;
 		this.color = 'aqua';
 		this.isAttack = false;
@@ -152,6 +155,7 @@ class Lizard extends Unit {
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
 		this.states = states.skeleton;
+		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
 		this.direction = direction;
 		this.color = 'aqua';
 		this.isAttack = false;
@@ -169,6 +173,7 @@ class Dragon extends Unit {
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
 		this.states = states.dragon;
+		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
 		this.direction = direction;
 		this.color = 'aqua';
 		this.isAttack = false;
