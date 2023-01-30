@@ -2,7 +2,7 @@ class Unit {
 	constructor(game) {
 		this.game = game;
 		this.frameX = 0;
-		this.life = 200;
+		this.life = 40;
 		this.fps = 18;
 		this.frameInterval = 1000/this.fps;
 		this.frameTimer = 0;
@@ -11,14 +11,13 @@ class Unit {
 		this.speedX = Math.random() * (2 - 1) + 0.5;
 	}
 	update(deltaTime) {
+		
 		if(!this.isAttack){
 
 		if (this.direction === 'right') {
 			this.x += this.speedX;
-			// if(this.x > this.game.width - this.game.player1.width) this.markedForDeletion = true;
 		} else if(this.direction === 'left'){
 			this.x += this.speedX * -1;
-			// if(this.x > this.game.width - this.game.player2.width) this.markedForDeletion = true;
 		}
 		}
 
@@ -70,6 +69,20 @@ const states = {
 			maxFrame: 3,
 		},
 	},
+	dragon: {
+		isMove: {
+			frameY: 0,
+			maxFrame: 3,
+		},
+		isMoveLeft: {
+			frameY: 1,
+			maxFrame: 3,
+		},
+		isAttack: {
+			frameY: 2,
+			maxFrame: 2,
+		},
+	},
 	skeleton: {
 		isMove: {
 			frameY: 11,
@@ -111,6 +124,7 @@ class Skeleton extends Unit {
 		this.direction = direction;
 		this.color = 'red';
 		this.markedForDeletion = false;
+		this.isAttack = false;
 		this.img = document.querySelector('#skeleton');
 	}
 }
@@ -124,6 +138,7 @@ class Zombie extends Unit {
 		this.states = states.skeleton;
 		this.direction = direction;
 		this.color = 'aqua';
+		this.isAttack = false;
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#zombie');
 	}
@@ -139,8 +154,26 @@ class Lizard extends Unit {
 		this.states = states.skeleton;
 		this.direction = direction;
 		this.color = 'aqua';
+		this.isAttack = false;
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#lizard');
 	}
 }
-export { Demon, Skeleton, Zombie, Lizard };
+class Dragon extends Unit {
+	constructor(game, direction) {
+		super(game);
+		this.width = 128;
+		this.height = 128;
+		this.fps = 12;
+		this.frameInterval = 1000/this.fps;
+		this.y = this.game.height - this.width;
+		this.x = direction === 'right' ? 0 : this.game.width - this.width;
+		this.states = states.dragon;
+		this.direction = direction;
+		this.color = 'aqua';
+		this.isAttack = false;
+		this.markedForDeletion = false;
+		this.img = document.querySelector('#dragon');
+	}
+}
+export { Demon, Skeleton, Zombie, Lizard, Dragon };

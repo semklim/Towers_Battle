@@ -1,5 +1,5 @@
 import Player from "./Player.js";
-import { Demon, Skeleton, Zombie, Lizard } from "./Units.js";
+import { Demon, Skeleton, Zombie, Lizard, Dragon } from "./Units.js";
 import UI from "./UI.js";
 
 
@@ -8,6 +8,7 @@ const setOfUnits = new Map([
 	[2, (game, direction) => new Skeleton(game, direction)],
 	[3, (game, direction) => new Zombie(game, direction)],
 	[4, (game, direction) => new Lizard(game, direction)],
+	[5, (game, direction) => new Dragon(game, direction)],
   ]);
 
 class Game {
@@ -40,35 +41,31 @@ class Game {
 		// Creating new unit and update positions of each
 		this.unitsP1.forEach(unit => {
 			unit.update(deltaTime);
-			// if (this.checkCollision(this.player2, unit)) {
-			// 	unit.markedForDeletion = true;
-			// }
+			if (this.checkCollision(this.player2, unit)) {
+				unit.markedForDeletion = true;
+				this.score += 1;
+			}
 		});
 		this.unitsP2.forEach((unit2) => {
 			unit2.update(deltaTime);
-			// if (this.checkCollision(this.player1, unit2)) {
-			// 	unit2.markedForDeletion = true;
-			// }
+			if (this.checkCollision(this.player1, unit2)) {
+				unit2.markedForDeletion = true;
+			}
 			this.unitsP1.forEach((unit) => {
 				if (this.checkCollision(unit, unit2)) {
 					if (unit.life <= 0) {
 						unit.markedForDeletion = true;
 					} else {
+							unit.direction === 'right' ? unit.x -= unit.speedX : unit.x += unit.speedX;
 							unit2.life -= Math.floor(Math.random() * 20 + 3);
 							console.log('Demon life = ' + unit.life);
-							if(unit === this.unitsP1.at(-1)){
-								this.units1Timer = 0;
-						}
 					};
 					if (unit2.life <= 0) {
 						unit2.markedForDeletion = true;
 					} else {
+						unit2.direction === 'right' ? unit2.x -= unit2.speedX : unit2.x += unit2.speedX;
 							unit.life -= Math.floor(Math.random() * 20 + 3);
 							console.log('Skeletonon life ' +' = '  + unit2.life);
-							if(unit2 === this.unitsP2.at(-1)){
-								this.units2Timer = 0;
-							// }
-						}
 					}
 				}
 			});
@@ -112,9 +109,7 @@ class Game {
 	}
 	checkCollision(rect1, rect2) {
 		return (rect1.x < rect2.x + rect2.width &&
-			rect1.x + rect1.width > rect2.x &&
-			rect1.y < rect2.y + rect2.height &&
-			rect1.y + rect1.height > rect2.y)
+			rect1.x + rect1.width >= rect2.x)
 	}
 	randomUnit(arr, direction){
 		const randomNum = Math.floor(Math.random() * this.setOfUnits.size + 1);
