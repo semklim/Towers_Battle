@@ -1,3 +1,10 @@
+//t1Wolk - ходячий  : атакует === только ходячих  = (Skeleton) 
+//t2Wolk - ходячий  : атакует === летающих        = (Zombie)
+//t3Wolk - ходячий  : атакует === всех            = (Lizard)
+//t4Fly  - летающий : атакует === только летающих = (Gragon)
+//t5Fly  - летающий : атакует === только ходячих  = (Demon)
+
+
 import Player from "./Player.js";
 import { Demon, Skeleton, Zombie, Lizard, Dragon } from "./Units.js";
 import UI from "./UI.js";
@@ -57,15 +64,63 @@ class Game {
 						unit.markedForDeletion = true;
 					} else {
 							unit.x -= unit.speedX;
-							unit.currentState = 'isAttack';
-							unit2.life -= Math.floor(Math.random() * 4 + 3);
+							//
+              if (unit.tier === `t1Wolk` && (unit2.tier === `t1Wolk` || unit2.tier === `t2Wolk` || unit2.tier === `t3Wolk`)){
+                unit.currentState = 'isAttack';
+                unit2.life -= Math.floor(Math.random() * 4 + 3);
+              }
+              if (unit.tier === `t2Wolk` && (unit2.tier === `t4Fly` || unit2.tier === `t5Fly`)) {
+                unit.currentState = 'isAttack';
+                unit2.life -= Math.floor(Math.random() * 4 + 3);
+              }
+              if (unit.tier === `t3Wolk` && unit2.tier !== false) {
+                unit.currentState = 'isAttack';
+                unit2.life -= Math.floor(Math.random() * 4 + 3);
+              }
+              if (unit.tier === `t4Fly` && (unit2.tier === `t4Fly` || unit2.tier === `t5Fly`)) {
+                unit.currentState = 'isAttack';
+                unit2.life -= Math.floor(Math.random() * 4 + 3);
+              }
+              if (unit.tier === `t5Fly` && (unit2.tier === `t1Wolk` || unit2.tier === `t2Wolk`)) {
+                unit.currentState = 'isAttack';
+                unit2.life -= Math.floor(Math.random() * 4 + 3);
+              }
+							//
+              // старый вариант
+              // unit.x -= unit.speedX;
+							// unit.currentState = 'isAttack';
+							// unit2.life -= Math.floor(Math.random() * 4 + 3);
 					};
 					if (unit2.life <= 0) {
 						unit2.markedForDeletion = true;
 					} else {
 							unit2.x += unit2.speedX;
-							unit2.currentState = 'isAttackLeft';
-							unit.life -= Math.floor(Math.random() * 4 + 3);
+              //
+              if (unit2.tier === `t1Wolk` && (unit.tier === `t1Wolk` || unit.tier === `t2Wolk` || unit.tier === `t3Wolk`)){
+                unit2.currentState = 'isAttackLeft';
+                unit.life -= Math.floor(Math.random() * 4 + 3);
+              }
+              if (unit2.tier === `t2Wolk` && (unit.tier === `t4Fly` || unit.tier === `t5Fly`)) {
+                unit2.currentState = 'isAttackLeft';
+                unit.life -= Math.floor(Math.random() * 4 + 3);
+              }
+              if (unit2.tier === `t3Wolk` && unit.tier !== false) {
+                unit2.currentState = 'isAttackLeft';
+                unit.life -= Math.floor(Math.random() * 4 + 3);
+              }
+              if (unit2.tier === `t4Fly` && (unit.tier === `t4Fly` || unit.tier === `t5Fly`)) {
+                unit2.currentState = 'isAttackLeft';
+                unit.life -= Math.floor(Math.random() * 4 + 3);
+              }
+              if (unit2.tier === `t5Fly` && (unit.tier === `t1Wolk` || unit.tier === `t2Wolk`)) {
+                unit2.currentState = 'isAttackLeft';
+                unit.life -= Math.floor(Math.random() * 4 + 3);
+              }
+							//
+              // старый вариант
+              // unit2.x += unit2.speedX;
+							// unit2.currentState = 'isAttackLeft';
+							// unit.life -= Math.floor(Math.random() * 4 + 3);
 					}
 				}
 			});

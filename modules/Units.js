@@ -1,3 +1,9 @@
+//t1Wolk - ходячий  : атакует === только ходячих  = (Skeleton) 
+//t2Wolk - ходячий  : атакует === летающих        = (Zombie)
+//t3Wolk - ходячий  : атакует === всех            = (Lizard)
+//t4Fly  - летающий : атакует === только летающих = (Gragon)
+//t5Fly  - летающий : атакует === только ходячих  = (Demon)
+
 class Unit {
 	constructor(game) {
 		this.game = game;
@@ -112,6 +118,7 @@ class Demon extends Unit {
 		this.img = document.querySelector('#demon');
 		this.isAttack = false;
 		this.markedForDeletion = false;
+    this.tier = `t5Fly`;
 	}
 }
 class Skeleton extends Unit {
@@ -128,6 +135,7 @@ class Skeleton extends Unit {
 		this.markedForDeletion = false;
 		this.isAttack = false;
 		this.img = document.querySelector('#skeleton');
+    this.tier = `t1Wolk`;
 	}
 }
 class Zombie extends Unit {
@@ -144,6 +152,7 @@ class Zombie extends Unit {
 		this.isAttack = false;
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#zombie');
+    this.tier = `t2Wolk`;
 	}
 }
 
@@ -161,6 +170,7 @@ class Lizard extends Unit {
 		this.isAttack = false;
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#lizard');
+    this.tier = `t3Wolk`;
 	}
 }
 class Dragon extends Unit {
@@ -179,6 +189,7 @@ class Dragon extends Unit {
 		this.isAttack = false;
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#dragon');
+    this.tier = `t4Fly`;
 	}
 }
 export { Demon, Skeleton, Zombie, Lizard, Dragon };
