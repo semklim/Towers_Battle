@@ -77,15 +77,15 @@ const states = {
 			maxFrame: 3,
 		},
 		isAttack: {
-			frameY: 2,
-			maxFrame: 2,
+			frameY: 0,
+			maxFrame: 3,
 		},
 		isAttackLeft: {
-			frameY: 2,
-			maxFrame: 2,
+			frameY: 0,
+			maxFrame: 3,
 		},
 	},
-	skeleton: {
+	groundTroops: {
 		isMove: {
 			frameY: 11,
 			maxFrame: 8,
@@ -118,7 +118,7 @@ class Demon extends Unit {
 		this.img = document.querySelector('#demon');
 		this.isAttack = false;
 		this.markedForDeletion = false;
-    this.tier = `t5Fly`;
+    	this.tier = `t5Fly`;
 	}
 }
 class Skeleton extends Unit {
@@ -129,13 +129,13 @@ class Skeleton extends Unit {
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
 		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
-		this.states = states.skeleton;
+		this.states = states.groundTroops;
 		this.direction = direction;
 		this.color = 'red';
 		this.markedForDeletion = false;
 		this.isAttack = false;
 		this.img = document.querySelector('#skeleton');
-    this.tier = `t1Wolk`;
+    	this.tier = `t1Wolk`;
 	}
 }
 class Zombie extends Unit {
@@ -145,8 +145,8 @@ class Zombie extends Unit {
 		this.height = 64;
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
-		this.states = states.skeleton;
 		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
+		this.states = states.groundTroops;
 		this.direction = direction;
 		this.color = 'aqua';
 		this.isAttack = false;
@@ -163,8 +163,8 @@ class Lizard extends Unit {
 		this.height = 64;
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
-		this.states = states.skeleton;
 		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
+		this.states = states.groundTroops;
 		this.direction = direction;
 		this.color = 'aqua';
 		this.isAttack = false;
@@ -182,14 +182,14 @@ class Dragon extends Unit {
 		this.frameInterval = 1000/this.fps;
 		this.y = this.game.height - this.width;
 		this.x = direction === 'right' ? 0 : this.game.width - this.width;
-		this.states = states.dragon;
 		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
+		this.states = states.dragon;
 		this.direction = direction;
 		this.color = 'aqua';
 		this.isAttack = false;
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#dragon');
-    this.tier = `t4Fly`;
+    	this.tier = `t4Fly`;
 	}
 }
 export { Demon, Skeleton, Zombie, Lizard, Dragon };
