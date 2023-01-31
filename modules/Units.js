@@ -14,27 +14,33 @@ class Unit {
 		this.frameTimer = 0;
 		this.fontSize = 25;
 		this.fontFamily = 'Helvetica';
-		this.speedX = Math.random() * (2 - 1) + 0.5;
+		this.speedX = Math.round(Math.random() * (3 - 1) + 1);
 	}
 	update(deltaTime) {
 		if (this.direction === 'right') {
 			this.currentState = 'isMove';
 			this.x += this.speedX;
+			if(this.x > this.game.width) {
+				this.markedForDeletion = true;
+			}
 		} else if(this.direction === 'left'){
 			this.currentState = 'isMoveLeft';
 			this.x -= this.speedX;
+			if(this.x < 0) {
+				this.markedForDeletion = true;
+			}
 		}
 		
-		this.chooseState(this.states[this.currentState], deltaTime)
+		this.unitAnimationLogic(this.states[this.currentState], deltaTime);
 	}
 	draw(context) {
 		context.fillStyle = this.color;
 		context.font = `${this.fontSize} 30px ${this.fontFamily}`;
 		context.fillText(this.life, this.x, this.y - this.height - 20);
 
-        context.drawImage(this.img, this.frameX  * this.width, this.states[this.currentState].frameY * this.height, this.width, this.height, this.x, this.y, this.width, this.height);
+        context.drawImage(this.img, this.frameX  * this.width, this.states[this.currentState].frameY * this.height, this.width, this.height, this.x, this.y - 18, this.width, this.height);
 	}
-	chooseState(state, deltaTime){
+	unitAnimationLogic(state, deltaTime){
 		if(this.frameTimer > this.frameInterval){
 			if(this.frameX >= state.maxFrame){
 				this.frameX = 0;
@@ -81,7 +87,7 @@ const states = {
 			maxFrame: 3,
 		},
 		isAttackLeft: {
-			frameY: 0,
+			frameY: 1,
 			maxFrame: 3,
 		},
 	},
