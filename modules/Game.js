@@ -12,18 +12,18 @@ import UI from "./UI.js";
 
 const setOfUnits = new Map([
 	[1, (game, direction) => new Demon(game, direction)],
-	[2, (game, direction) => new Skeleton(game, direction)],
+	[2, (game, direction) => new Dragon(game, direction)],
 	[3, (game, direction) => new Zombie(game, direction)],
 	[4, (game, direction) => new Lizard(game, direction)],
-	[5, (game, direction) => new Dragon(game, direction)],
+	[5, (game, direction) => new Skeleton(game, direction)],
   ]);
 
 class Game {
 	constructor(width, height) {
 		this.width = width;
 		this.height = height;
-		this.player1 = new Player(this, 0);
-		this.player2 = new Player(this, this.width - 100);
+		this.player1 = new Player(this, 5);
+		this.player2 = new Player(this, this.width);
 		this.ui = new UI(this);
 		this.setOfUnits = setOfUnits;
 		this.unitsP1 = [];
@@ -43,84 +43,86 @@ class Game {
 		this.unitsP1.forEach(unit => {
 			unit.update(deltaTime);
 			if (this.checkCollision(this.player2, unit)) {
-				unit.markedForDeletion = true;
+				this.player2.life -= this.unitsDamage();
+				// unit.markedForDeletion = true;
 			}
 		});
 		this.unitsP2.forEach((unit2) => {
 			unit2.update(deltaTime);
 			if (this.checkCollision(this.player1, unit2)) {
-				unit2.markedForDeletion = true;
+				this.player1.life -= this.unitsDamage();
+				// unit2.markedForDeletion = true;
 			}
 			this.unitsP1.forEach((unit) => {
 				if (this.checkCollision(unit, unit2)) {
 					if (unit.life <= 0) {
 						unit.markedForDeletion = true;
-						this.scoreP1 += 1;
+						this.scoreP2 += 1;
 					} else {
 							unit.x -= unit.speedX;
 							//
               if (unit.tier === `t1Wolk` && (unit2.tier === `t1Wolk` || unit2.tier === `t2Wolk` || unit2.tier === `t3Wolk`)){
                 unit.currentState = 'isAttack';
-                unit2.life -= Math.floor(Math.random() * 4 + 3);
+                unit2.life -= this.unitsDamage();
               }
               if (unit.tier === `t2Wolk` && (unit2.tier === `t4Fly` || unit2.tier === `t5Fly`)) {
                 unit.currentState = 'isAttack';
-                unit2.life -= Math.floor(Math.random() * 4 + 3);
+                unit2.life -= this.unitsDamage();
               }
               if (unit.tier === `t3Wolk` && unit2.tier !== false) {
                 unit.currentState = 'isAttack';
-                unit2.life -= Math.floor(Math.random() * 4 + 3);
+                unit2.life -= this.unitsDamage();
               }
               if (unit.tier === `t4Fly` && (unit2.tier === `t4Fly` || unit2.tier === `t5Fly`)) {
                 unit.currentState = 'isAttack';
-                unit2.life -= Math.floor(Math.random() * 4 + 3);
+                unit2.life -= this.unitsDamage();
               }
               if (unit.tier === `t5Fly` && (unit2.tier === `t1Wolk` || unit2.tier === `t2Wolk`)) {
                 unit.currentState = 'isAttack';
-                unit2.life -= Math.floor(Math.random() * 4 + 3);
+                unit2.life -= this.unitsDamage();
               }
 							//
               // старый вариант
               // unit.x -= unit.speedX;
 							// unit.currentState = 'isAttack';
-							// unit2.life -= Math.floor(Math.random() * 4 + 3);
+							// unit2.life -= this.unitsDamage();
 					};
 					if (unit2.life <= 0) {
 						unit2.markedForDeletion = true;
-						this.scoreP2 += 1;
+						this.scoreP1 += 1;
 					} else {
 							unit2.x += unit2.speedX;
               //
               if (unit2.tier === `t1Wolk` && (unit.tier === `t1Wolk` || unit.tier === `t2Wolk` || unit.tier === `t3Wolk`)){
                 unit2.currentState = 'isAttackLeft';
-                unit.life -= Math.floor(Math.random() * 4 + 3);
+                unit.life -= this.unitsDamage();
               }
               if (unit2.tier === `t2Wolk` && (unit.tier === `t4Fly` || unit.tier === `t5Fly`)) {
                 unit2.currentState = 'isAttackLeft';
-                unit.life -= Math.floor(Math.random() * 4 + 3);
+                unit.life -= this.unitsDamage();
               }
               if (unit2.tier === `t3Wolk` && unit.tier !== false) {
                 unit2.currentState = 'isAttackLeft';
-                unit.life -= Math.floor(Math.random() * 4 + 3);
+                unit.life -= this.unitsDamage();
               }
               if (unit2.tier === `t4Fly` && (unit.tier === `t4Fly` || unit.tier === `t5Fly`)) {
                 unit2.currentState = 'isAttackLeft';
-                unit.life -= Math.floor(Math.random() * 4 + 3);
+                unit.life -= this.unitsDamage();
               }
               if (unit2.tier === `t5Fly` && (unit.tier === `t1Wolk` || unit.tier === `t2Wolk`)) {
                 unit2.currentState = 'isAttackLeft';
-                unit.life -= Math.floor(Math.random() * 4 + 3);
+                unit.life -= this.unitsDamage();
               }
 							//
               // старый вариант
               // unit2.x += unit2.speedX;
 							// unit2.currentState = 'isAttackLeft';
-							// unit.life -= Math.floor(Math.random() * 4 + 3);
+							// unit.life -= this.unitsDamage();
 					}
 				}
 			});
 		});
-		// logic of pause in creating units
+		// logic of creating units
 		// For player 1
 		this.addUnitP1(deltaTime);
 
@@ -165,6 +167,9 @@ class Game {
 		const randomNum = Math.floor(Math.random() * this.setOfUnits.size + 1);
 		const unit = this.setOfUnits.get(randomNum);
 			arr.push(unit(this, direction));
+	}
+	unitsDamage() {
+		return Math.floor(Math.random() * 20 + 3)
 	}
 }
 
