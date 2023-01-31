@@ -11,6 +11,7 @@ class Player {
 		this.frameY = 0;
 		this.isDead = false;
 		this.img = document.querySelector('#castle');
+		this.score = 0;
 	}
 
 	draw(context) {

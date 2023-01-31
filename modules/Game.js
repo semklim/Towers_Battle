@@ -31,8 +31,6 @@ class Game {
 		this.units1Timer = 0;
 		this.units2Timer = 0;
 		this.unitInterval = 1000;
-		this.scoreP1 = 0;
-		this.scoreP2 = 0;
 	}
 	update(deltaTime) {
 
@@ -44,6 +42,7 @@ class Game {
 			unit.update(deltaTime);
 			if (this.checkCollision(this.player2, unit)) {
 				this.player2.life -= this.unitsDamage();
+				if(this.player2.life <= 0) this.player2.isDead = true;
 				// unit.markedForDeletion = true;
 			}
 		});
@@ -51,13 +50,14 @@ class Game {
 			unit2.update(deltaTime);
 			if (this.checkCollision(this.player1, unit2)) {
 				this.player1.life -= this.unitsDamage();
+				if(this.player1.life <= 0) this.player1.isDead = true;
 				// unit2.markedForDeletion = true;
 			}
 			this.unitsP1.forEach((unit) => {
 				if (this.checkCollision(unit, unit2)) {
 					if (unit.life <= 0) {
 						unit.markedForDeletion = true;
-						this.scoreP2 += 1;
+						this.player2.score += 1;
 					} else {
 							unit.x -= unit.speedX;
 							//
@@ -89,7 +89,7 @@ class Game {
 					};
 					if (unit2.life <= 0) {
 						unit2.markedForDeletion = true;
-						this.scoreP1 += 1;
+						this.player2.score += 1;
 					} else {
 							unit2.x += unit2.speedX;
               //
