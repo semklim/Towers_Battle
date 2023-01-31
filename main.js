@@ -4,11 +4,30 @@ const C_Width = 1000;
 const C_Height = 480;
 const play = document.querySelector('.play');
 const pause = document.querySelector('.stop');
+const bannerBtns = document.querySelectorAll('[type="button"]');
+const banner = document.querySelector('.banner');
+const audio = new Audio('./sound/music/Alexey_Anisimov_-_8-bit_Arcade_Game_Music.mp3');
+	  audio.volume = 0.3;
+	  audio.loop = true;
 const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
 let lastTime = 0;
 let stop;
 let isPaused = false;
+
+function startGame({target:{value}}){
+	if(value === 'Yes'){
+		banner.remove();
+	}
+	if(value === 'No'){
+		banner.remove();
+		alert('good luck');
+	}
+
+		canvas.classList.toggle('blur');
+		animate(0);
+		audio.play();
+}
 
 const game = new Game(C_Width, C_Height);
 window.addEventListener('load', function onLoadPage(){
@@ -16,7 +35,10 @@ window.addEventListener('load', function onLoadPage(){
 	canvas.width = C_Width;
 	canvas.height = C_Height;
 	canvas.style.border = '2px solid black';
-	animate(0);
+
+	bannerBtns[0].addEventListener('click', startGame)
+
+	bannerBtns[1].addEventListener('click', startGame)
 });
 
 // animation loop
@@ -60,12 +82,14 @@ function gameOver (winner, tower) {
 
 function stopAnime(){
 	cancelAnimationFrame(stop);
+	audio.pause();
 	isPaused = true;
 }
 
 function PlayAnime() {
 	if(isPaused){
 		animate(lastTime);
+		audio.play();
 		isPaused = false;
 	}
 }

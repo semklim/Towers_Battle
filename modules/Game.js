@@ -89,7 +89,7 @@ class Game {
 					};
 					if (unit2.life <= 0) {
 						unit2.markedForDeletion = true;
-						this.player2.score += 1;
+						this.player1.score += 1;
 					} else {
 							unit2.x += unit2.speedX;
               //
