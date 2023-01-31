@@ -14,7 +14,8 @@ class UI {
 		context.shadowColor = 'black';
 		context.fillStyle = this.color;
 		context.font = `${this.fontSize} 30px ${this.fontFamily}`;
-		context.fillText(`Score: ${this.game.score}`, 10, 40);
+		context.fillText(`Score: ${this.game.scoreP1}`, 10, 40);
+		context.fillText(`Score: ${this.game.scoreP2}`, this.game.width - 150, 40);
 
 		// draw a projectile amount
 		context.restore();

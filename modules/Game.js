@@ -31,17 +31,11 @@ class Game {
 		this.units1Timer = 0;
 		this.units2Timer = 0;
 		this.unitInterval = 1000;
-		this.score = 0;
-		this.winningScore = 10;
+		this.scoreP1 = 0;
+		this.scoreP2 = 0;
 	}
 	update(deltaTime) {
-		// logic of restoring projectiles
-		if (this.ammoTimer > this.ammoInterval) {
-			if (this.ammo < this.maxAmmo) this.ammo += 1;
-			this.ammoTimer = 0;
-		} else {
-			this.ammoTimer += deltaTime;
-		}
+
 		// Check if unit is dead
 		this.unitsP1 = this.unitsP1.filter(unit => !unit.markedForDeletion);
 		this.unitsP2 = this.unitsP2.filter(unit2 => !unit2.markedForDeletion);
@@ -50,7 +44,6 @@ class Game {
 			unit.update(deltaTime);
 			if (this.checkCollision(this.player2, unit)) {
 				unit.markedForDeletion = true;
-				this.score += 1;
 			}
 		});
 		this.unitsP2.forEach((unit2) => {
@@ -62,6 +55,7 @@ class Game {
 				if (this.checkCollision(unit, unit2)) {
 					if (unit.life <= 0) {
 						unit.markedForDeletion = true;
+						this.scoreP1 += 1;
 					} else {
 							unit.x -= unit.speedX;
 							//
@@ -93,6 +87,7 @@ class Game {
 					};
 					if (unit2.life <= 0) {
 						unit2.markedForDeletion = true;
+						this.scoreP2 += 1;
 					} else {
 							unit2.x += unit2.speedX;
               //
