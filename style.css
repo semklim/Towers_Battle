@@ -10,6 +10,8 @@ body{
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+  background-image: url(./source/bg2.jpg);
+  background-size: cover;
 }
 
 .gameLogo {
@@ -53,7 +55,7 @@ img[hidden]{
   font-style: oblique;
   font-size: 20px;
   font-weight: 800;
-  background-color: rgb(101, 158, 54);
+  background-color: rgb(175, 190, 38);
   transition: 0.2s;
 
   box-shadow: 0 5px 0px 0px;
