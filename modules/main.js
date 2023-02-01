@@ -6,6 +6,7 @@ const play = document.querySelector('.play');
 const pause = document.querySelector('.stop');
 const bannerBtns = document.querySelectorAll('[type="button"]');
 const banner = document.querySelector('.banner');
+const onLoadBanner = document.querySelector('.notLoad');
 const audio = new Audio('./sound/music/Alexey_Anisimov_-_8-bit_Arcade_Game_Music.mp3');
 	  audio.volume = 0.3;
 	  audio.loop = true;
@@ -36,9 +37,10 @@ window.addEventListener('load', function onLoadPage(){
 	canvas.height = C_Height;
 	canvas.style.border = '2px solid black';
 
-	bannerBtns[0].addEventListener('click', startGame)
+	bannerBtns[0].addEventListener('click', startGame);
 
-	bannerBtns[1].addEventListener('click', startGame)
+	bannerBtns[1].addEventListener('click', startGame);
+	onLoadBanner.remove();
 });
 
 // animation loop
