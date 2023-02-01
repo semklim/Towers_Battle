@@ -15,6 +15,10 @@ class Unit {
 		this.fontSize = 25;
 		this.fontFamily = 'Helvetica';
 		this.speedX = Math.round(Math.random() * (3 - 1) + 1);
+
+    this.maxInterval = 100;
+    this.currenInterval = 100;
+    this.stepInterval = 10;
 	}
 	update(deltaTime) {
 		if (this.direction === 'right') {
