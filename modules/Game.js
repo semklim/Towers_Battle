@@ -82,11 +82,11 @@ class Game {
             audioDead.play()
             audioDead = null
 					} else {
-							unit.x -= unit.speedX;
-							//
               if (unit.tier === `t1Wolk` && (unit2.tier === `t1Wolk` || unit2.tier === `t2Wolk` || unit2.tier === `t3Wolk`)){
+				unit.x -= unit.speedX;
+				// unit.currentState = 'isAttack';
+				unit.currentState = 'isAttack';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit.currentState = 'isAttack';
                   unit2.life -= this.unitsDamage(this.player1);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -99,8 +99,9 @@ class Game {
               }
 
               if (unit.tier === `t2Wolk` && (unit2.tier === `t4Fly` || unit2.tier === `t5Fly`)) {
+				unit.x -= unit.speedX;
+				unit.currentState = 'isAttack';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit.currentState = 'isAttack';
                   unit2.life -= this.unitsDamage(this.player1);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -113,8 +114,9 @@ class Game {
               }
 
               if (unit.tier === `t3Wolk` && unit2.tier !== false) {
+				unit.x -= unit.speedX;
+				unit.currentState = 'isAttack';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit.currentState = 'isAttack';
                   unit2.life -= this.unitsDamage(this.player1);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -126,8 +128,9 @@ class Game {
                 } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit.tier === `t4Fly` && (unit2.tier === `t4Fly` || unit2.tier === `t5Fly`)) {
+				unit.x -= unit.speedX;
+				unit.currentState = 'isAttack';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit.currentState = 'isAttack';
                   unit2.life -= this.unitsDamage(this.player1);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -140,8 +143,9 @@ class Game {
                 // audioHit.play()
               }
               if (unit.tier === `t5Fly` && (unit2.tier === `t1Wolk` || unit2.tier === `t2Wolk`)) {
+				unit.x -= unit.speedX;
+				unit.currentState = 'isAttack';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit.currentState = 'isAttack';
                   unit2.life -= this.unitsDamage(this.player1);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -161,11 +165,11 @@ class Game {
 
 						unit2.markedForDeletion = true;
 					} else {
-							unit2.x += unit2.speedX;
               
               if (unit2.tier === `t1Wolk` && (unit.tier === `t1Wolk` || unit.tier === `t2Wolk` || unit.tier === `t3Wolk`)){
+				unit2.x += unit2.speedX;
+				unit2.currentState = 'isAttackLeft';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit2.currentState = 'isAttack';
                   unit.life -= this.unitsDamage(this.player2);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -177,8 +181,9 @@ class Game {
                 } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit2.tier === `t2Wolk` && (unit.tier === `t4Fly` || unit.tier === `t5Fly`)) {
+				unit2.x += unit2.speedX;
+				unit2.currentState = 'isAttackLeft';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit2.currentState = 'isAttack';
                   unit.life -= this.unitsDamage(this.player2);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -190,8 +195,9 @@ class Game {
                 } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit2.tier === `t3Wolk` && unit.tier !== false) {
+				unit2.x += unit2.speedX;
+				unit2.currentState = 'isAttackLeft';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit2.currentState = 'isAttack';
                   unit.life -= this.unitsDamage(this.player2);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -203,8 +209,9 @@ class Game {
                 } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit2.tier === `t4Fly` && (unit.tier === `t4Fly` || unit.tier === `t5Fly`)) {
+				unit2.x += unit2.speedX;
+				unit2.currentState = 'isAttackLeft';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit2.currentState = 'isAttack';
                   unit.life -= this.unitsDamage(this.player2);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');
@@ -216,8 +223,9 @@ class Game {
                 } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit2.tier === `t5Fly` && (unit.tier === `t1Wolk` || unit.tier === `t2Wolk`)) {
+				unit2.x += unit2.speedX;
+				unit2.currentState = 'isAttackLeft';
                 if (unit.currenInterval >= unit.maxInterval) {
-                  unit2.currentState = 'isAttack';
                   unit.life -= this.unitsDamage(this.player2);
 
                   let audioHit = new Audio('./sound/effects/hit.mp3');

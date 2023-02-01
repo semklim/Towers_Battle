@@ -8,7 +8,7 @@ class Unit {
 	constructor(game) {
 		this.game = game;
 		this.frameX = 0;
-		this.life = 200;
+		this.life = 30;
 		this.fps = 18;
 		this.frameInterval = 1000/this.fps;
 		this.frameTimer = 0;
@@ -38,9 +38,9 @@ class Unit {
 		this.unitAnimationLogic(this.states[this.currentState], deltaTime);
 	}
 	draw(context) {
-		context.fillStyle = this.color;
-		context.font = `${this.fontSize} 30px ${this.fontFamily}`;
-		context.fillText(this.life, this.x, this.y - this.height - 20);
+		// context.fillStyle = this.color;
+		// context.font = `${this.fontSize} 30px ${this.fontFamily}`;
+		// // context.fillText(this.life, this.x, this.y - this.height - 20);
 
         context.drawImage(this.img, this.frameX  * this.width, this.states[this.currentState].frameY * this.height, this.width, this.height, this.x, this.y - 18, this.width, this.height);
 	}
