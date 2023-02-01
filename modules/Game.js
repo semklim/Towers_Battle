@@ -9,6 +9,9 @@ import Player from "./Player.js";
 import { Demon, Skeleton, Zombie, Lizard, Dragon } from "./Units.js";
 import UI from "./UI.js";
 
+// const audioHit = new Audio('./sound/effects/hit.mp3');
+// 	  audioHit.volume = 0.7;
+
 
 const setOfUnits = new Map([
 	[1, (game, direction) => new Demon(game, direction)],
@@ -58,66 +61,160 @@ class Game {
 					if (unit.life <= 0) {
 						unit.markedForDeletion = true;
 						this.player2.score += 1;
+
+            let audioDead = new Audio('./sound/effects/dead.mp3');
+	          audioDead.volume = 0.7;
+            audioDead.play()
+            audioDead = null
 					} else {
 							unit.x -= unit.speedX;
 							//
               if (unit.tier === `t1Wolk` && (unit2.tier === `t1Wolk` || unit2.tier === `t2Wolk` || unit2.tier === `t3Wolk`)){
-                unit.currentState = 'isAttack';
-                unit2.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit.currentState = 'isAttack';
+                  unit2.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;  
+                } else { unit.currenInterval += unit.stepInterval;}
               }
+
               if (unit.tier === `t2Wolk` && (unit2.tier === `t4Fly` || unit2.tier === `t5Fly`)) {
-                unit.currentState = 'isAttack';
-                unit2.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit.currentState = 'isAttack';
+                  unit2.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
               }
+
               if (unit.tier === `t3Wolk` && unit2.tier !== false) {
-                unit.currentState = 'isAttack';
-                unit2.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit.currentState = 'isAttack';
+                  unit2.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit.tier === `t4Fly` && (unit2.tier === `t4Fly` || unit2.tier === `t5Fly`)) {
-                unit.currentState = 'isAttack';
-                unit2.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit.currentState = 'isAttack';
+                  unit2.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
+                // audioHit.play()
               }
               if (unit.tier === `t5Fly` && (unit2.tier === `t1Wolk` || unit2.tier === `t2Wolk`)) {
-                unit.currentState = 'isAttack';
-                unit2.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit.currentState = 'isAttack';
+                  unit2.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
               }
-							//
-              // старый вариант
-              // unit.x -= unit.speedX;
-							// unit.currentState = 'isAttack';
-							// unit2.life -= this.unitsDamage();
 					};
 					if (unit2.life <= 0) {
+            let audioDead2 = new Audio('./sound/effects/dead_2.mp3');
+	          audioDead2.volume = 0.4;
+            audioDead2.play()
+            audioDead2 = null
+
 						unit2.markedForDeletion = true;
 						this.player1.score += 1;
 					} else {
 							unit2.x += unit2.speedX;
-              //
+              
               if (unit2.tier === `t1Wolk` && (unit.tier === `t1Wolk` || unit.tier === `t2Wolk` || unit.tier === `t3Wolk`)){
-                unit2.currentState = 'isAttackLeft';
-                unit.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit2.currentState = 'isAttack';
+                  unit.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit2.tier === `t2Wolk` && (unit.tier === `t4Fly` || unit.tier === `t5Fly`)) {
-                unit2.currentState = 'isAttackLeft';
-                unit.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit2.currentState = 'isAttack';
+                  unit.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit2.tier === `t3Wolk` && unit.tier !== false) {
-                unit2.currentState = 'isAttackLeft';
-                unit.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit2.currentState = 'isAttack';
+                  unit.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit2.tier === `t4Fly` && (unit.tier === `t4Fly` || unit.tier === `t5Fly`)) {
-                unit2.currentState = 'isAttackLeft';
-                unit.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit2.currentState = 'isAttack';
+                  unit.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
               }
               if (unit2.tier === `t5Fly` && (unit.tier === `t1Wolk` || unit.tier === `t2Wolk`)) {
-                unit2.currentState = 'isAttackLeft';
-                unit.life -= this.unitsDamage();
+                if (unit.currenInterval >= unit.maxInterval) {
+                  unit2.currentState = 'isAttack';
+                  unit.life -= this.unitsDamage();
+
+                  let audioHit = new Audio('./sound/effects/hit.mp3');
+	                audioHit.volume = 0.7;
+                  audioHit.play()
+                  audioHit = null
+
+                  unit.currenInterval = 0;
+                } else { unit.currenInterval += unit.stepInterval;}
               }
-							//
-              // старый вариант
-              // unit2.x += unit2.speedX;
-							// unit2.currentState = 'isAttackLeft';
-							// unit.life -= this.unitsDamage();
+
 					}
 				}
 			});
