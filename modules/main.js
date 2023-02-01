@@ -1,4 +1,4 @@
-import Game from "./modules/Game.js";
+import Game from "./Game.js";
 
 const C_Width = 1000;
 const C_Height = 480;
@@ -43,16 +43,11 @@ window.addEventListener('load', function onLoadPage(){
 
 // animation loop
 function animate(timeStamp) {
-	if(game.player1.life <= 0){
+	if(game.player1.life <= 0 || game.player2.life <= 0){
 		play.removeEventListener('click', PlayAnime);
 		pause.removeEventListener('click', stopAnime);
 		cancelAnimationFrame(stop);
-		gameOver(game.player1, 'left');
-	}else if(game.player2 <= 0){
-		play.removeEventListener('click', PlayAnime);
-		pause.removeEventListener('click', stopAnime);
-		cancelAnimationFrame(stop);
-		gameOver(game.player2, 'right');
+		gameOver(game.player1, game.player2);
 	}else{
 		const deltaTime = timeStamp - lastTime;
 		lastTime = timeStamp;
@@ -63,20 +58,39 @@ function animate(timeStamp) {
 	}
 }
 
-function gameOver (winner, tower) {
+function gameOver (player1, player2) {
 	ctx.clearRect(0, 0, C_Width, C_Height);
 	const fontSize = 30;
 	const fontFamily = 'Helvetica';
 	const color = 'white';
+	const tower1 = {
+		x: 55,
+		y: (game.height - 35) / 2
+}
+	const tower2 = {
+		x: game.width - 445,
+		y: (game.height - 35) / 2
+}
+	ctx.fillStyle = '#6ab4dd';
+	ctx.fillRect(tower1.x - 30, (game.height - 140) / 2, 450, 180);
+	ctx.fillRect(tower2.x - 30, (game.height - 140) / 2, 450, 180);
 	ctx.save();
-	ctx.shadowBlur = 10;
 	ctx.shadowOffsetX = 2;
 	ctx.shadowOffsetY = 2;
 	ctx.shadowColor = 'black';
 	ctx.fillStyle = color;
 	ctx.font = `bold ${fontSize}px ${fontFamily}`;
-	ctx.fillText(`Tower from ${tower} is winner!`, (game.width - 350) / 2, (game.height - 35) / 2 - 20);
-	ctx.fillText(`Score: ${winner.score}`, (game.width - 145) / 2, (game.height - 35) / 2 + 20);
+	ctx.fillText(`Tower from left, ${player1.status}`, tower1.x, tower1.y - 20);
+	ctx.fillText(`Score: ${player1.score}`, tower1.x, tower1.y + 20);
+	ctx.fillText(`Damage Done: ${player1.damageDone}`, tower1.x, tower1.y + 50);
+	ctx.fillText(`Created Units: ${player1.countCreatedUnits}`, tower1.x, tower1.y + 80);
+	ctx.fillText(`Dead Units: ${player1.countDeadUnits}`, tower1.x, tower1.y + 110);
+
+	ctx.fillText(`Tower from right, ${player2.status}`, tower2.x, tower2.y - 20);
+	ctx.fillText(`Score: ${player2.score}`, tower2.x, tower2.y + 20);
+	ctx.fillText(`Damage Done: ${player2.damageDone}`, tower2.x, tower2.y + 50);
+	ctx.fillText(`Created Units: ${player2.countCreatedUnits}`, tower2.x, tower2.y + 80);
+	ctx.fillText(`Dead Units: ${player2.countDeadUnits}`, tower2.x, tower2.y + 110);
 	ctx.restore();
 }
 

@@ -120,11 +120,12 @@ class Demon extends Unit {
 		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
 		this.states = states.demon;
 		this.direction = direction;
-		this.color = 'green';
+		this.color = 'darkred';
 		this.img = document.querySelector('#demon');
 		this.isAttack = false;
 		this.markedForDeletion = false;
     	this.tier = `t5Fly`;
+		this.score = 4;
 	}
 }
 class Skeleton extends Unit {
@@ -142,6 +143,7 @@ class Skeleton extends Unit {
 		this.isAttack = false;
 		this.img = document.querySelector('#skeleton');
     	this.tier = `t1Wolk`;
+		this.score = 2;
 	}
 }
 class Zombie extends Unit {
@@ -159,6 +161,7 @@ class Zombie extends Unit {
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#zombie');
     this.tier = `t2Wolk`;
+	this.score = 5;
 	}
 }
 
@@ -172,11 +175,12 @@ class Lizard extends Unit {
 		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
 		this.states = states.groundTroops;
 		this.direction = direction;
-		this.color = 'aqua';
+		this.color = 'violet';
 		this.isAttack = false;
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#lizard');
     this.tier = `t3Wolk`;
+	this.score = 1;
 	}
 }
 class Dragon extends Unit {
@@ -191,11 +195,12 @@ class Dragon extends Unit {
 		this.currentState = direction === 'right' ? 'isMove' : 'isMoveLeft';
 		this.states = states.dragon;
 		this.direction = direction;
-		this.color = 'aqua';
+		this.color = 'yellow';
 		this.isAttack = false;
 		this.markedForDeletion = false;
 		this.img = document.querySelector('#dragon');
     	this.tier = `t4Fly`;
+		this.score = 3;
 	}
 }
 export { Demon, Skeleton, Zombie, Lizard, Dragon };
