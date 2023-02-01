@@ -10,4 +10,167 @@ body{
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+  background-image: url(./source/bg2.jpg);
+  background-size: cover;
+}
+
+.banner{
+	padding: 20px;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	z-index: 2;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	/* height: 200px; */
+	background-color: rgb(108, 92, 180);
+  box-shadow: 2px 2px 5px 3px;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 25px;
+	text-align: center;
+	overflow: hidden;
+}
+
+.blur{
+	filter: blur(5px);
+}
+
+.confirm__text{
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  cursor: default;
+  color:rgb(255, 255, 255);
+  font-family:Verdana, Geneva, sans-serif;
+  text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+  -webkit-text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+  -moz-text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+	margin-bottom: 20px;
+}
+
+.confirm > input{
+	width: 45%;
+	height: 50px;
+}
+
+.confirm__button{
+  border-radius: 10px;
+  transition: 0.2s;
+
+  background-color: rgb(175, 190, 38);
+  box-shadow: 0 5px 0px 0px;
+
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  cursor: default;
+  
+  /* color: black; */
+  font-family:Verdana, Geneva, sans-serif;
+  /* text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+  -webkit-text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+  -moz-text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0); */
+}
+
+.confirm__button:active {
+  transform: scale(0.955);
+  box-shadow:  0px 0px 2px;
+}
+.pointEvent{
+	pointer-events: none;
+}
+
+[value = 'Start game']{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 120px;
+	height: 50px;
+	font-size: 20px;
+}
+
+.notLoad{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 150%;
+	height: 200%;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%) rotate(45deg);
+	backdrop-filter: blur(5px);
+}
+.notLoad > p{
+	width: 100px;
+	font-weight: bolder;
+}
+
+.gameLogo {
+  position: fixed;
+  top: 20px;
+  left: 30px;
+  font-size: 46px;
+  margin: 0;
+  padding: 0;
+  font-style: italic;
+  position: fixed;
+
+  cursor: default;
+  color:rgb(255, 255, 255);
+  font-family:Verdana, Geneva, sans-serif;
+  
+  text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+  -webkit-text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+  -moz-text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+}
+
+img[hidden]{
+	display: none;
+}
+
+#canvas {
+  background-image: url(./source/canvasBackground.jpg);
+  background-size: 100% auto ;
+  background-position: bottom;
+}
+
+.canvas {
+  margin-bottom: 10px;
+}
+
+.buttonAnimate {
+  width: 150px;
+  padding: 10px 0 10px 0;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: oblique;
+  font-size: 20px;
+  font-weight: 800;
+  background-color: rgb(175, 190, 38);
+  transition: 0.2s;
+
+  box-shadow: 0 5px 0px 0px;
+  text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+  -webkit-text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0);
+  -moz-text-shadow:0px 1px 0 rgb(0,0,0),0px -1px 0 rgb(0,0,0),1px 0px 0 rgb(0,0,0),-1px 0px 0 rgb(0,0,0),1px 1px 0 rgb(0,0,0),1px -1px 0 rgb(0,0,0),-1px 1px 0 rgb(0,0,0),-1px -1px 0 rgb(0,0,0); 
+}
+
+/* .buttonAnimate:hover {
+  transform: scale(1.02);
+  box-shadow: 0 7px 0px 0px;
+} */
+
+.buttonAnimate:active {
+  transform: scale(0.955);
+  box-shadow:  0px 0px 2px;
+}
+
+.buttonAnimate__text {
+  /* наклонить текст как будет инет */
+  color: aliceblue;
 }

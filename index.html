@@ -9,10 +9,35 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="./style.css">
-<script src="./script.js" defer></script>
+<script src="./modules/main.js" type="module"></script>
 <title>Towers battle</title>
 </head>
 <body>
-<canvas id="canvas" class="blur"></canvas>
+	<div class="banner">
+		<div class="access">
+			<div class="confirm">
+				<div class="notLoad"><p>Please wait, it's loading</p></div>
+				<p class="confirm__text">Are u like video game?</p>
+				<input type="button" class="confirm__button" value="Yes">
+				<input type="button" class="confirm__button" value="No">
+			</div>
+		</div>
+	</div>
+  <header class="header">
+    <h2 class="gameLogo">Towers battle</h2>
+  </header>
+  <section class="canvas">
+    <canvas id="canvas" class="blur"></canvas>
+    <img src="./source/sprites/Demon.png" hidden id="demon" alt="Demon">
+    <img src="./source/sprites/Skeleton.png" hidden id="skeleton" alt="Skeleton">
+    <img src="./source/sprites/Zombie.png" hidden id="zombie" alt="Zombie">
+    <img src="./source/sprites/Lizard.png" hidden id="lizard" alt="Lizard">
+    <img src="./source/sprites/Dragon.png" hidden id="dragon" alt="Dragon">
+    <img src="./source/sprites/Castle.png" hidden id="castle" alt="Castle">
+  </section>
+  <section class="buttonsControls">
+    <button class="play buttonAnimate"><span class="buttonAnimate__text">PLAY</span></button>
+    <button class="stop buttonAnimate"><span class="buttonAnimate__text">PAUSE</span></button>
+  </section>
 </body>
 </html>
